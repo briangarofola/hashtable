@@ -64,33 +64,33 @@ public class HashTable {
 	
 	public boolean set(Object key, Object value){
 		boolean updated = false;
-		for(HashTableArrayNode node : storage){
+		HashTableArrayNode node = storage[ getIndex(key) ];
+		
+		if(node != null){
 			updated = node.update(key, value);
-			if( updated ){
-				break;
-			}
 		}
+		
 		return updated;
 	}
 
 	public Object get(Object key){
+		HashTableArrayNode node = storage[ getIndex(key) ];
 		HashTableNodePair item = null;
-		for(HashTableArrayNode node : storage){
+		
+		if(node != null){
 			item = node.get(key);
-			if( item != null){
-				break;
-			}
 		}
 		return item != null ? item.getValue() : null;
 	}
 		
 	public boolean remove(Object key){
+		HashTableArrayNode node = storage[ getIndex(key) ];
 		boolean removed = false;
-		for(HashTableArrayNode node : storage){
+		
+		if(node != null){
 			removed = node.remove(key);
 			if( removed ){
 				count--;
-				break;
 			}
 		}
 		return removed;
